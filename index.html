@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/good-times-rg">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -26,41 +25,47 @@
             backdrop-filter:blur(12px);
             transition:0.4s;
         }
-        header.scrolled { background:rgba(0,20,13,0.98); }
-        .logo {
-            display:flex; align-items:center; gap:14px;
-        }
-        .logo img { height:52px; }
-        .logo span { font-size:32px; font-weight:800; letter-spacing:1px; }
+        header.scrolled { background:rgba(0,20,13,0.98); padding:16px 5%; }
+
+        .logo { display:flex; align-items:center; gap:14px; }
+        .logo img:first-child { height:52px; }
+        .logo img:last-child { height:42px; }
+
         nav ul { display:flex; gap:40px; list-style:none; }
-        nav a { color:#fff; text-decoration:none; font-weight:600; font-size:15px; }
+        nav a { color:#fff; text-decoration:none; font-weight:600; font-size:15px; transition:0.3s; }
         nav a:hover { color:#c49a6c; }
         .phone { font-size:18px; font-weight:bold; }
 
-        /* Fullscreen Slider */
+        /* Hamburger & Mobil Menü */
+        .hamburger { display:none; cursor:pointer; font-size:32px; z-index:1001; }
+        .mobile-menu {
+            position:fixed; top:0; left:-100%; width:100%; height:100vh;
+            background:rgba(0,29,19,0.98); backdrop-filter:blur(20px);
+            display:flex; flex-direction:column; justify-content:center; align-items:center;
+            transition:left 0.45s ease; z-index:999;
+            
+        }
+        .mobile-menu a {
+    font-size: 25px !important;   /* İstediğin boyuta getir, 24-30 arası çok iyi durur */
+}
+        .mobile-menu.active { left:0; }
+        .mobile-menu ul { list-style:none; text-align:center; }
+        .mobile-menu li { margin:22px 0; }
+        .mobile-menu a { color:#fff; font-size:36px; font-weight:700; text-decoration:none; }
+        .mobile-menu a:hover { color:#c49a6c; }
+
+        /* Slider */
         .hero-slider { height:100vh; position:relative; }
         .swiper { width:100%; height:100%; }
-        .swiper-slide {
-            background-position:center; background-size:cover;
-            display:flex; align-items:flex-end;
-        }
-        .slide-content {
-            background:linear-gradient(transparent, #001d13);
-            width:100%; padding:140px 8% 80px;
-        }
+        .swiper-slide { background-position:center; background-size:cover; display:flex; align-items:flex-end; }
+        .slide-content { background:linear-gradient(transparent, #001d13); width:100%; padding:140px 8% 80px; }
         .slide-content h1 { font-size:56px; margin-bottom:16px; font-weight:800; }
         .slide-content p { font-size:26px; margin-bottom:40px; opacity:0.9; }
-        .btn {
-            background:#fff; color:#001d13; padding:16px 40px; border-radius:50px;
-            text-decoration:none; font-weight:700; font-size:17px; display:inline-block;
-            transition:0.3s;
-        }
+        .btn { background:#fff; color:#001d13; padding:16px 40px; border-radius:50px; text-decoration:none; font-weight:700; font-size:17px; display:inline-block; transition:0.3s; }
         .btn:hover { background:#c49a6c; color:#fff; }
 
-        /* Stats Section */
-        .stats {
-            padding:140px 8% 100px; text-align:center;
-        }
+        /* Stats - ESKİ PC GÖRÜNÜMÜ %100 AYNI */
+        .stats { padding:140px 8% 100px; text-align:center; }
         .stats h2 { font-size:48px; margin-bottom:80px; }
         .stats-grid {
             display:grid;
@@ -84,78 +89,92 @@
         }
         .stat-number { font-size:56px; font-weight:900; color:#c49a6c; margin:10px 0; }
         .stat-label { font-size:18px; opacity:0.9; }
-        .years-box {
-            background:#c49a6c; color:#001d13; padding:40px 30px;
-            border-radius:30px; font-weight:800; font-size:28px;
-            display:inline-block; margin-top:20px;
-        }
 
         /* Footer */
-        .footer {
-            background:rgba(0,15,10,0.6);
-            padding:80px 8% 40px;
-            border-top:1px solid rgba(104,129,80,0.3);
-        }
-        .footer-content {
-            max-width:1400px; margin:0 auto; display:flex;
-            justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px;
-        }
-        .social-icons a img {
-            width:48px; height:48px; border-radius:50%; transition:transform 0.3s;
-        }
+        .footer { background:rgba(0,15,10,0.6); padding:80px 8% 40px; border-top:1px solid rgba(104,129,80,0.3); }
+        .footer-content { max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px; }
+        .social-icons a img { width:48px; height:48px; border-radius:50%; transition:transform 0.3s; }
         .social-icons a img:hover { transform:scale(1.18); }
         .contact-info { text-align:right; font-size:16px; }
         .contact-info i { color:#c49a6c; margin-right:8px; }
-        .copyright {
-            text-align:center; margin-top:50px; padding-top:30px;
-            border-top:1px solid rgba(104,129,80,0.2); color:#aaa; font-size:14px;
-        }
+        .copyright { text-align:center; margin-top:50px; padding-top:30px; border-top:1px solid rgba(104,129,80,0.2); color:#aaa; font-size:14px; }
 
-        @media (max-width:992px) {
+        /* MOBİL AYARLAR */
+        @media (max-width: 992px) {
+            .hamburger { display:block; }
+            nav, .phone { display:none; }
+            .logo img:first-child { height:46px; }
+            .logo img:last-child { height:38px; }
+            .slide-content { padding:100px 5% 60px; }
             .slide-content h1 { font-size:42px; }
             .slide-content p { font-size:22px; }
             .stats h2 { font-size:38px; }
+            .stats-grid { gap:40px; }
+            .stat-img { width:120px; height:120px; }
+        }
+        @media (max-width: 576px) {
+            .slide-content h1 { font-size:36px; }
+            .stats-grid { grid-template-columns:1fr; }
         }
     </style>
 </head>
 <body>
 
 <header id="header">
-    <div class="logo">
-        <img src="content/head/sarilogo.png" alt="Stro Logo">
-          <img src="content/head/yazi.png" alt="Stro Logo">
-    </div>
+   <div class="logo">
+ 
+    <img src="content/head/yazi2.png" alt="Stro İnşaat" class="logo-text ">
+   
+</div>
+
     <nav>
         <ul>
             <li><a href="#">ANASAYFA</a></li>
-            <li><a href="#">KURUMSAL</a></li>
-            <li><a href="#">PROJELER</a></li>
+            <li><a href="hakkimizda.html">HAKKIMIZDA</a></li>
+            <li><a href="#">İNŞAAT/MİMARLIK</a></li>
             <li><a href="#">KENTSEL DÖNÜŞÜM</a></li>
-            <li><a href="#">İLETİŞİM</a></li>
+        
+            <li><a href="#">REFERANSLAR</a></li>
+
+            <li><a href="#footer">İLETİŞİM</a></li>
         </ul>
     </nav>
-    <div class="phone">Telefon (0212) 590 35 93</div>
+
+    <div class="phone">Telefon (0212) 676 22 22</div>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="bi bi-list"></i>
+    </div>
 </header>
 
-<!-- Slider -->
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="#" onclick="toggleMenu()">ANASAYFA</a></li>
+       <li><a href="hakkimizda.html" onclick="toggleMenu()">HAKKIMIZDA</a></li>
+        <li><a href="#" onclick="toggleMenu()">İNŞAAT/MİMARLIK</a></li>
+        <li><a href="#" onclick="toggleMenu()">KENTSEL DÖNÜŞÜM</a></li>
+          <li><a href="#" onclick="toggleMenu()">REFERANSLAR</a></li>
+        <li><a href="#footer" onclick="toggleMenu()">İLETİŞİM</a></li>
+    </ul>
+</div>
+
 <section class="hero-slider">
     <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80')">
                 <div class="slide-content">
-                    <h1>Firuzköy Konakları</h1>
+                    <h1>Kentsel Dönüşüm</h1>
                     <p>Konut Projesi</p>
                     <a href="#" class="btn">Projeyi İncele</a>
                 </div>
             </div>
             <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80')">
                 <div class="slide-content">
-                    <h1>Lüks Rezidans</h1>
-                    <p>Modern Yaşam Alanları</p>
-                    <a href="#" class="btn">Projeyi İncele</a>
+                    <h1>Hakkımızda</h1>
+                    <p>Geçmişten Bugün'e A'dan Z'ye Stro</p>
+                    <a href="hakkimizda.html" class="btn">GİT</a>
                 </div>
             </div>
-            <!-- Daha fazla slide istersen ekle -->
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
@@ -163,7 +182,6 @@
     </div>
 </section>
 
-<!-- Stats -->
 <section class="stats">
     <h2>Güvenle Yükselen Yaşam Alanları</h2>
     <div class="stats-grid">
@@ -187,35 +205,29 @@
             <div class="stat-number">10</div>
             <div class="stat-label">Güçlendirme</div>
         </div>
-
     </div>
 </section>
 
-<!-- Footer -->
-<div class="footer">
+ <div class="footer" id="footer">
+   
     <div class="footer-content">
+        
         <div class="social-icons">
-            <a href="https://www.instagram.com/strogayrimenkul/" target="_blank">
-                <img src="content/info/instagram.png" alt="Instagram">
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=100095039101577" target="_blank">
-                <img src="content/info/facebook.png" alt="Facebook">
-            </a>
-            <a href="https://www.youtube.com/@STROGayrimenkul" target="_blank">
-                <img src="content/info/youtube.png" alt="YouTube">
-            </a>
-            <a href="https://www.sahibinden.com/" target="_blank">
-                <img src="content/info/sahibinden.png" alt="Sahibinden">
-            </a>
+            <a href="https://www.instagram.com/stro_insaat_mimarlik?igsh=MWY3dDR1MjRlY2Vibw==" target="_blank"><img src="content/info/instagram.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com/share/1FSLw2Abhy/" target="_blank"><img src="content/info/facebook.png" alt="Facebook"></a>
+            <a href="https://www.youtube.com/@STROGayrimenkul" target="_blank"><img src="content/info/youtube.png" alt="YouTube"></a>
+            <a href="https://www.sahibinden.com/" target="_blank"><img src="content/info/sahibinden.png" alt="Sahibinden"></a>
+            <a href="https://www.google.com/maps/place/STRO+%C4%B0N%C5%9EAAT-GAYR%C4%B0MENKUL/@40.9799269,28.7221579,857m/data=!3m2!1e3!4b1!4m6!3m5!1s0x8819f8d993a5057d:0x3a7df1f871c4f52a!8m2!3d40.9799269!4d28.7221579!16s%2Fg%2F11vbwhnpwh?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" target="_blank"><img src="content/info/gmaps.png" alt="Sahibinden"></a>
         </div>
+        
         <div class="contact-info">
-            <div><i class="bi bi-telephone-fill"></i> (0212) 590 35 93</div>
+            <div><i class="bi bi-telephone-fill"></i> (0212) 676 22 22</div>
             <div><i class="bi bi-envelope-fill"></i> info@stroinsaat.com.tr</div>
+             <div><i class="bi bi-adress-fill"></i> Merkez, Marmara Cd. Bekir Aşçı İş Merkezi No:10 İç Kapı No:22, 34315 Avcılar/İstanbul</div>
         </div>
     </div>
-    <div class="copyright">
-        © 2025 Stro İnşaat. Tüm hakları saklıdır.
-    </div>
+    
+    <div class="copyright">© 2025 Stro İnşaat. Tüm hakları saklıdır.</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -231,6 +243,15 @@
     window.addEventListener('scroll', () => {
         document.getElementById('header').classList.toggle('scrolled', window.scrollY > 100);
     });
+
+    function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const icon = document.querySelector('.hamburger i');
+        menu.classList.toggle('active');
+        icon.classList.toggle('bi-list');
+        icon.classList.toggle('bi-x');
+    }
+ 
 </script>
 </body>
 </html>
