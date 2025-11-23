@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stro İnşaat</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/good-times-rg">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Poppins',sans-serif;
+            color:#fff;
+            background: linear-gradient(135deg, #001d13 0%, #688150 100%);
+            min-height:100vh;
+            overflow-x:hidden;
+        }
+
+        /* Header */
+        header {
+            position:fixed; top:0; width:100%; z-index:1000;
+            padding:20px 5%; display:flex; justify-content:space-between; align-items:center;
+            background: linear-gradient(180deg, rgba(0,29,19,0.95), rgba(0,29,19,0.7));
+            backdrop-filter:blur(12px);
+            transition:0.4s;
+        }
+        header.scrolled { background:rgba(0,20,13,0.98); }
+        .logo {
+            display:flex; align-items:center; gap:14px;
+        }
+        .logo img { height:52px; }
+        .logo span { font-size:32px; font-weight:800; letter-spacing:1px; }
+        nav ul { display:flex; gap:40px; list-style:none; }
+        nav a { color:#fff; text-decoration:none; font-weight:600; font-size:15px; }
+        nav a:hover { color:#c49a6c; }
+        .phone { font-size:18px; font-weight:bold; }
+
+        /* Fullscreen Slider */
+        .hero-slider { height:100vh; position:relative; }
+        .swiper { width:100%; height:100%; }
+        .swiper-slide {
+            background-position:center; background-size:cover;
+            display:flex; align-items:flex-end;
+        }
+        .slide-content {
+            background:linear-gradient(transparent, #001d13);
+            width:100%; padding:140px 8% 80px;
+        }
+        .slide-content h1 { font-size:56px; margin-bottom:16px; font-weight:800; }
+        .slide-content p { font-size:26px; margin-bottom:40px; opacity:0.9; }
+        .btn {
+            background:#fff; color:#001d13; padding:16px 40px; border-radius:50px;
+            text-decoration:none; font-weight:700; font-size:17px; display:inline-block;
+            transition:0.3s;
+        }
+        .btn:hover { background:#c49a6c; color:#fff; }
+
+        /* Stats Section */
+        .stats {
+            padding:140px 8% 100px; text-align:center;
+        }
+        .stats h2 { font-size:48px; margin-bottom:80px; }
+        .stats-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+            gap:60px; max-width:1400px; margin:0 auto;
+        }
+        .stat-item {
+            background:rgba(0,20,13,0.4);
+            backdrop-filter:blur(10px);
+            border:1px solid rgba(104,129,80,0.2);
+            border-radius:20px;
+            padding:30px;
+            transition:transform 0.3s;
+        }
+        .stat-item:hover { transform:translateY(-12px); }
+        .stat-img {
+            width:150px; height:150px; border-radius:50%;
+            object-fit:contain; background:#001a0f; padding:20px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.6);
+            margin:0 auto 30px;
+        }
+        .stat-number { font-size:56px; font-weight:900; color:#c49a6c; margin:10px 0; }
+        .stat-label { font-size:18px; opacity:0.9; }
+        .years-box {
+            background:#c49a6c; color:#001d13; padding:40px 30px;
+            border-radius:30px; font-weight:800; font-size:28px;
+            display:inline-block; margin-top:20px;
+        }
+
+        /* Footer */
+        .footer {
+            background:rgba(0,15,10,0.6);
+            padding:80px 8% 40px;
+            border-top:1px solid rgba(104,129,80,0.3);
+        }
+        .footer-content {
+            max-width:1400px; margin:0 auto; display:flex;
+            justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px;
+        }
+        .social-icons a img {
+            width:48px; height:48px; border-radius:50%; transition:transform 0.3s;
+        }
+        .social-icons a img:hover { transform:scale(1.18); }
+        .contact-info { text-align:right; font-size:16px; }
+        .contact-info i { color:#c49a6c; margin-right:8px; }
+        .copyright {
+            text-align:center; margin-top:50px; padding-top:30px;
+            border-top:1px solid rgba(104,129,80,0.2); color:#aaa; font-size:14px;
+        }
+
+        @media (max-width:992px) {
+            .slide-content h1 { font-size:42px; }
+            .slide-content p { font-size:22px; }
+            .stats h2 { font-size:38px; }
+        }
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <div class="logo">
+        <img src="content/head/sarilogo.png" alt="Stro Logo">
+          <img src="content/head/yazi.png" alt="Stro Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">ANASAYFA</a></li>
+            <li><a href="#">KURUMSAL</a></li>
+            <li><a href="#">PROJELER</a></li>
+            <li><a href="#">KENTSEL DÖNÜŞÜM</a></li>
+            <li><a href="#">İLETİŞİM</a></li>
+        </ul>
+    </nav>
+    <div class="phone">Telefon (0212) 590 35 93</div>
+</header>
+
+<!-- Slider -->
+<section class="hero-slider">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80')">
+                <div class="slide-content">
+                    <h1>Firuzköy Konakları</h1>
+                    <p>Konut Projesi</p>
+                    <a href="#" class="btn">Projeyi İncele</a>
+                </div>
+            </div>
+            <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80')">
+                <div class="slide-content">
+                    <h1>Lüks Rezidans</h1>
+                    <p>Modern Yaşam Alanları</p>
+                    <a href="#" class="btn">Projeyi İncele</a>
+                </div>
+            </div>
+            <!-- Daha fazla slide istersen ekle -->
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+    <h2>Güvenle Yükselen Yaşam Alanları</h2>
+    <div class="stats-grid">
+        <div class="stat-item">
+            <img src="content/section2/konut.png" alt="Konut" class="stat-img">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">Konut Projesi</div>
+        </div>
+        <div class="stat-item">
+            <img src="content/section2/tecrube.png" alt="Tecrübe" class="stat-img">
+            <div class="stat-number">40</div>
+            <div class="stat-label">Yıllık Sektör Deneyimi</div>
+        </div>
+        <div class="stat-item">
+            <img src="content/section2/kentseldonusum.png" alt="Kentsel Dönüşüm" class="stat-img">
+            <div class="stat-number">35</div>
+            <div class="stat-label">Kentsel Dönüşüm</div>
+        </div>
+        <div class="stat-item">
+            <img src="content/section2/guclendirme.png" alt="Güçlendirme" class="stat-img">
+            <div class="stat-number">10</div>
+            <div class="stat-label">Güçlendirme</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="footer-content">
+        <div class="social-icons">
+            <a href="https://www.instagram.com/strogayrimenkul/" target="_blank">
+                <img src="content/info/instagram.png" alt="Instagram">
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=100095039101577" target="_blank">
+                <img src="content/info/facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/@STROGayrimenkul" target="_blank">
+                <img src="content/info/youtube.png" alt="YouTube">
+            </a>
+            <a href="https://www.sahibinden.com/" target="_blank">
+                <img src="content/info/sahibinden.png" alt="Sahibinden">
+            </a>
+        </div>
+        <div class="contact-info">
+            <div><i class="bi bi-telephone-fill"></i> (0212) 590 35 93</div>
+            <div><i class="bi bi-envelope-fill"></i> info@stroinsaat.com.tr</div>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2025 Stro İnşaat. Tüm hakları saklıdır.
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    new Swiper('.swiper', {
+        loop: true,
+        autoplay: { delay: 5000 },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        effect: 'fade'
+    });
+
+    window.addEventListener('scroll', () => {
+        document.getElementById('header').classList.toggle('scrolled', window.scrollY > 100);
+    });
+</script>
+</body>
+</html>
